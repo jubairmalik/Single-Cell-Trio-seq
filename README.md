@@ -1,1 +1,1 @@
-# SIngle-Cell-Trio-seq
+# Single-Cell-Trio-seq
