@@ -1,0 +1,54 @@
+#have created 3 type methylation code
+#It could have been done in single code but dividided in three code as beforehand was interested only on promoter region.
+As a result made three separate code to process methylation data in three ways.
+#another info:  taking only 'CpG' type and excluding X,Y chromosome.
+
+#input:removing_duplicated_final.csv (consist column for start, end and gene_name) and samples ()
+#output: generate csv file with average methylation rate for each gene for each sample (total-1298 files)
+
+#1000 position before start to start position[promoter]
+methaylation_promoter.py
+#Just start to end position[gene body]
+methylation_genebody.py
+#End postion to 500 position after end position[downstream]
+methylation_downstream.py
+
+#Those code depends on this filtered csv file where if a gene appears multiple times they are filtered away.
+filtered csv file:removing_duplicated_final.csv.
+previously we use 'Gene_Annotation_Reduced.csv'file which has duplicated gene rows like:
+0	1	67092164	67134970	C1orf141
+1	2	67092164	67134970	C1orf141
+By filtering those we generated the new csv as removing_duplicated_final.csv file.
+
+Steps inside code-
+------------------------
+""calculating average methylation rate in a single iteartion or single sample"":
+
+Two input files:(example case-removing_duplicated_final.csv and .gz)
+
+#For input file1:
+To get the 'Gene_Annotation_Reduced.csv'file, we downloaded the gene annotation file from UCSC Table browser 
+using genome: Human, assembly: Dec. 2013 (GRCh38/hg38), 
+group: Genes and Genes Predictions, track: NCBI Refseq filtering. The annotation file consists of columns: start,
+end and gene name. Then we select the first row that will show a value of start, end and gene
+name-'Gene_Annotation_Reduced.csv' which later transformed to this file removing_duplicated_final.csv
+
+#For input file2:
+https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE97693. From here we collected 1298 sample files.
+a sample file name could be like this: GSM2697936_scTrioSeq2Met_CRC01_ML3_096.singleC.txt.gz 
+
+#Then we pull how many times we got methylation (ranges between 0 to 1) value for each position in the aforementioned
+range(promoter range,gene body range,downstream range... ranges were calculated on at a time not all together)  
+from methylation value files for each sample (the file for a smple with extension .gz)
+
+
+#After averaging (sum of methylation rate in that range divided by how many times that appeared), we found the average methylation rate
+for that gene in that sample file (the file for a smple with extension .gz)
+
+
+#Same procedure is repeated for each gene from the sample file.This is how we generated the average methylation rate for 22,910 genes. 
+Then we just kept only the gene with the highest average methylation rate value if a gene appeared with multiple average methylation rate.
+
+One output file:(example case:-GSM2697936_scTrioSeq2Met_CRC01_ML3_096.singleC_reduced.csv)
+The above proceduere is repeated for 1298 smaple files which generated 1298 output files. For 3 types of methylation position the number of files will be
+1298*3= 3894 files.
