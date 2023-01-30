@@ -1,4 +1,5 @@
-# Single-Cell-Trio-seq
+# Integrating multi-omics and prior biological data to predict Colorectal cancer cells using Single Cell Trio-seq data
+
 
 Cancer is a disease, caused by unregulated cell growth, can spread in any region of the body and sometimes this region can be undetected. Several studies have predicted cancer cells from Single Cell RNA-seq (scRNA-seq) data; however, using only gene expression or DNA methylation data individually and without biological relevance. Here we have built deep learning models integrating gene expression and DNA methylation data and biological information such as Protein-Protein Interaction (PPI) and Protein-DNA Interaction (PDI) and KEGG pathway to predict colorectal cancer cells from tumors and their metastases precisely. We have found 91% accuracy by merging gene expression data and DNA methylation data. We have shown that using multi omics data performs better than using only one data modality.
 
